@@ -277,34 +277,11 @@ public class CameraView extends FrameLayout {
             if (wasOpened) {
                 stop();
             }
-            Log.e("MyComponent", "vai virar camera1");
             mImpl = new Camera1(mCallbacks, mImpl.mPreview, getContext());
         }
-
-        Log.e("MyComponent", "tem hard: " + String.valueOf(mImpl.checkIfHasCamera2()));
-
-        if (mImpl.checkIfHasCamera2() == false) {
-            if (mImpl instanceof Camera1) {
-                return;
-            }
-
-            // Toast.makeText(mContext, "ERA PRA COMEÇAR TUDO DE NOVO",
-            // Toast.LENGTH_LONG).show();
-            if (wasOpened) {
-                Log.e("MyComponent", "vai parar");
-                stop();
-            }
-
-            PreviewImpl preview = createPreviewImpl(getContext());
-            mImpl = new Camera1(mCallbacks, preview, getContext());
-        }
-
-        onRestoreInstanceState(state);
-        if (wasOpened) {
-            Log.e("MyComponent", "vai iniciar");
-            start();
-        }
+        start();
     }
+
 
     /**
      * Open a camera device and start showing camera preview. This is typically
