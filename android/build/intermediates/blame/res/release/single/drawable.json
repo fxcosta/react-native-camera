@@ -1,0 +1,74 @@
+[
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_text_dark_normal.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\d04e47abb0de4ab4f46f491319c729c8\\res\\drawable\\common_google_signin_btn_text_dark_normal.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_icon_light_normal.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\d04e47abb0de4ab4f46f491319c729c8\\res\\drawable\\common_google_signin_btn_icon_light_normal.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_text_light_focused.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\d04e47abb0de4ab4f46f491319c729c8\\res\\drawable\\common_google_signin_btn_text_light_focused.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_icon_dark_focused.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\d04e47abb0de4ab4f46f491319c729c8\\res\\drawable\\common_google_signin_btn_icon_dark_focused.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\3480a13f84af7e264464556f99e16850\\res\\drawable\\notification_tile_bg.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\3480a13f84af7e264464556f99e16850\\res\\drawable\\notification_bg.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_text_dark_focused.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\d04e47abb0de4ab4f46f491319c729c8\\res\\drawable\\common_google_signin_btn_text_dark_focused.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_icon_light.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\d04e47abb0de4ab4f46f491319c729c8\\res\\drawable\\common_google_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\3480a13f84af7e264464556f99e16850\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_icon_disabled.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\d04e47abb0de4ab4f46f491319c729c8\\res\\drawable\\common_google_signin_btn_icon_disabled.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_text_light.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\d04e47abb0de4ab4f46f491319c729c8\\res\\drawable\\common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_icon_dark_normal.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\d04e47abb0de4ab4f46f491319c729c8\\res\\drawable\\common_google_signin_btn_icon_dark_normal.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_text_light_normal.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\d04e47abb0de4ab4f46f491319c729c8\\res\\drawable\\common_google_signin_btn_text_light_normal.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\3480a13f84af7e264464556f99e16850\\res\\drawable\\notification_icon_background.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_icon_dark.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\d04e47abb0de4ab4f46f491319c729c8\\res\\drawable\\common_google_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_text_disabled.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\d04e47abb0de4ab4f46f491319c729c8\\res\\drawable\\common_google_signin_btn_text_disabled.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_text_dark.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\d04e47abb0de4ab4f46f491319c729c8\\res\\drawable\\common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "E:\\mscope\\node_modules\\react-native-camera\\android\\build\\intermediates\\res\\merged\\release\\drawable\\common_google_signin_btn_icon_light_focused.xml",
+        "source": "C:\\Users\\Sotero Tech 05\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\d04e47abb0de4ab4f46f491319c729c8\\res\\drawable\\common_google_signin_btn_icon_light_focused.xml"
+    }
+]
