@@ -37,7 +37,7 @@
     "react-native": "^0.56.0",
     "semantic-release": "^15.10.6"
   },
-  "homepage": "https://github.com/react-native-community/react-native-camera",
+  "homepage": "https://github.com/fxcosta/react-native-camera",
   "keywords": [
     "barcode",
     "camera",
@@ -68,7 +68,7 @@
   "pre-commit": "lint:staged",
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-native-community/react-native-camera.git"
+    "url": "https://github.com/fxcosta/react-native-camera.git"
   },
   "scripts": {
     "commit": "git-cz",
