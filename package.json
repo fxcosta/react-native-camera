@@ -1,7 +1,7 @@
 {
   "name": "react-native-camera-override",
   "description": "A Camera component for React Native. Also reads barcodes.",
-  "version": "1.9.2",
+  "version": "1.9.3",
   "author": "Lochlan Wansbrough <lochie@live.com> (http://lwansbrough.com)",
   "collective": {
     "type": "opencollective",
@@ -37,7 +37,7 @@
     "react-native": "^0.56.0",
     "semantic-release": "^15.10.6"
   },
-  "homepage": "https://github.com/react-native-community/react-native-camera",
+  "homepage": "https://github.com/fxcosta/react-native-camera",
   "keywords": [
     "barcode",
     "camera",
@@ -68,7 +68,7 @@
   "pre-commit": "lint:staged",
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-native-community/react-native-camera.git"
+    "url": "https://github.com/fxcosta/react-native-camera.git"
   },
   "scripts": {
     "commit": "git-cz",
