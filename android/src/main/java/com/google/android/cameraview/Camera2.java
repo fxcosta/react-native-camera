@@ -1002,6 +1002,7 @@ class Camera2 extends CameraViewImpl implements MediaRecorder.OnInfoListener, Me
 
         float value = 1 / mFocusDepth;
         mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, 0);
+        mPreviewRequestBuilder.set(CaptureRequest.LENS_FOCUS_DISTANCE, mFocusDepth);
     }
 
     /**
@@ -1102,7 +1103,7 @@ class Camera2 extends CameraViewImpl implements MediaRecorder.OnInfoListener, Me
                     mPreviewRequestBuilder.get(CaptureRequest.CONTROL_AF_MODE));
 
             float focus = 1 / mFocusDepth;
-            captureRequestBuilder.set(CaptureRequest.LENS_FOCUS_DISTANCE, focus);
+            captureRequestBuilder.set(CaptureRequest.LENS_FOCUS_DISTANCE, mFocusDepth);
             
             switch (mFlash) {
                 case Constants.FLASH_OFF:
@@ -1360,5 +1361,4 @@ class Camera2 extends CameraViewImpl implements MediaRecorder.OnInfoListener, Me
         public abstract void onPrecaptureRequired();
 
     }
-
 }
