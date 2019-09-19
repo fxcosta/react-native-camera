@@ -100,6 +100,9 @@ abstract class CameraViewImpl {
 
     abstract void setExposureCompensation(float exposureCompensation);
 
+    abstract void setZoomRegionVertical(int vertical);
+    abstract void setZoomRegionHorizontal(int horizontal);
+
     abstract float getExposureCompensation();
 
     abstract Range<Integer> getMinAndMaxExposureCompensation();

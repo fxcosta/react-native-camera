@@ -503,6 +503,18 @@ public class CameraView extends FrameLayout {
         mImpl.setExposureCompensation(exposureCompensation);
     }
 
+    public void setZoomRegionVertical(int zoomRegionVertical) {
+        if(Build.VERSION.SDK_INT > 21) {
+            mImpl.setZoomRegionVertical(zoomRegionVertical);
+        }
+    }
+
+    public void setZoomRegionHorizontal(int zoomRegionHorizontal) {
+        if(Build.VERSION.SDK_INT > 21) {
+            mImpl.setZoomRegionHorizontal(zoomRegionHorizontal);
+        }
+    }
+
     public float getExposureCompensation() {
         return mImpl.getExposureCompensation();
     }

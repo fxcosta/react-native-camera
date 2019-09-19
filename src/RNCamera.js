@@ -138,6 +138,8 @@ type PropsType = typeof View.props & {
   onBarCodeRead?: Function,
   onPictureSaved?: Function,
   exposureCompensation?: number,
+  zoomRegionVertical?: number,
+  zoomRegionHorizontal?: number,
   onGoogleVisionBarcodesDetected?: Function,
   faceDetectionMode?: number,
   flashMode?: number | string,
@@ -250,6 +252,8 @@ export default class Camera extends React.Component<PropsType, StateType> {
     type: CameraManager.Type,
     flashMode: CameraManager.FlashMode,
     exposureCompensation: CameraManager.exposureCompensation,
+    zoomRegionHorizontal: CameraManager.zoomRegionHorizontal,
+    zoomRegionVertical: CameraManager.zoomRegionVertical,
     autoFocus: CameraManager.AutoFocus,
     whiteBalance: CameraManager.WhiteBalance,
     faceDetectionMode: (CameraManager.FaceDetection || {}).Mode,
@@ -281,9 +285,11 @@ export default class Camera extends React.Component<PropsType, StateType> {
     flashMode: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     iso: PropTypes.number,
     exposureCompensation: PropTypes.number,
+    zoomRegionHorizontal: PropTypes.number,
+    zoomRegionVertical: PropTypes.number,
     exposureDuration: PropTypes.shape({
       value: PropTypes.number.isRequired,
-      scale: PropTypes.number.isRequired
+      scale: PropTypes.number.isRequired,
     }),
     whiteBalance: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     autoFocus: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
@@ -306,6 +312,8 @@ export default class Camera extends React.Component<PropsType, StateType> {
     ratio: '4:3',
     focusDepth: 0,
     exposureCompensation: 0,
+    zoomRegionVertical: 0,
+    zoomRegionHorizontal: 0,
     type: CameraManager.Type.back,
     autoFocus: CameraManager.AutoFocus.on,
     flashMode: CameraManager.FlashMode.off,
@@ -632,7 +640,7 @@ export default class Camera extends React.Component<PropsType, StateType> {
     if (Platform.OS === 'android') {
       const props = this._convertNativeProps(this.props);
       return CameraManager.getSupportedISOValues({
-        type: props.type
+        type: props.type,
       });
     }
 
@@ -644,7 +652,7 @@ export default class Camera extends React.Component<PropsType, StateType> {
     if (Platform.OS === 'android') {
       const props = this._convertNativeProps(this.props);
       return CameraManager.getSupportedISORange({
-        type: props.type
+        type: props.type,
       });
     }
 
@@ -655,7 +663,7 @@ export default class Camera extends React.Component<PropsType, StateType> {
     if (Platform.OS === 'android') {
       const props = this._convertNativeProps(this.props);
       return await CameraManager.getSupportedExposureCompensationRange({
-        type: props.type
+        type: props.type,
       });
     }
     return CameraManager.getSupportedExposureCompensationRange();

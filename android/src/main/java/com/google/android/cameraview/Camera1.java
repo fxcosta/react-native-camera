@@ -380,6 +380,14 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
     }
 
     @Override
+    public void setZoomRegionVertical(int zoomRegionVertical) {
+    }
+
+    @Override
+    public void setZoomRegionHorizontal(int zoomRegionHorizontal) {
+    }
+
+    @Override
     public float getExposureCompensation() {
         return mExposureCompensation;
     }

@@ -102,6 +102,16 @@ public class CameraViewManager extends ViewGroupManager<RNCameraView> {
     view.setExposureCompensation(exposureCompensation);
   }
 
+  @ReactProp(name = "zoomRegionVertical")
+  public void setZoomRegionVertical(RNCameraView view, int zoomRegionVertical) {
+    view.setZoomRegionVertical(zoomRegionVertical);
+  }
+
+  @ReactProp(name = "zoomRegionHorizontal")
+  public void setZoomRegionHorizontal(RNCameraView view, int zoomRegionHorizontal) {
+    view.setZoomRegionHorizontal(zoomRegionHorizontal);
+  }
+
   @ReactProp(name = "exposureDuration")
   public void setExposureDuration(RNCameraView view, ReadableMap exposureDuration) {
     // Not supported on Android.
