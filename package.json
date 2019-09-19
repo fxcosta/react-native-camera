@@ -1,7 +1,7 @@
 {
   "name": "react-native-camera-override",
   "description": "A Camera component for React Native. Also reads barcodes.",
-  "version": "1.9.3",
+  "version": "1.9.5",
   "author": "Lochlan Wansbrough <lochie@live.com> (http://lwansbrough.com)",
   "collective": {
     "type": "opencollective",
