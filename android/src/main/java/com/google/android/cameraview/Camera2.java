@@ -116,6 +116,10 @@ class Camera2 extends CameraViewImpl implements MediaRecorder.OnInfoListener, Me
             }
             mCaptureSession = session;
             mInitialCropRegion = mPreviewRequestBuilder.get(CaptureRequest.SCALER_CROP_REGION);
+
+            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE, 0);
+            mPreviewRequestBuilder.set(CaptureRequest.LENS_OPTICAL_STABILIZATION_MODE, 0);
+
             updateAutoFocus();
             updateFlash();
             updateFocusDepth();
@@ -1021,10 +1025,10 @@ class Camera2 extends CameraViewImpl implements MediaRecorder.OnInfoListener, Me
             int heightOffset = (currentHeight - zoomedHeight) / 2;
 
             Rect zoomedPreview = new Rect(
-                currentPreview.left + widthOffset,
-                currentPreview.top + heightOffset,
-                currentPreview.right - widthOffset,
-                currentPreview.bottom - heightOffset
+                currentPreview.left + (widthOffset),
+                currentPreview.top + (heightOffset),
+                currentPreview.right - (widthOffset - 300),
+                currentPreview.bottom - (heightOffset + 100)
             );
 
             // ¯\_(ツ)_/¯ for some devices calculating the Rect for zoom=1 results in a bit different
