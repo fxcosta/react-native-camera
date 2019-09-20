@@ -9,7 +9,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.0.1'
+    classpath 'com.android.tools.build:gradle:3.3.1'
   }
 }
 
@@ -27,6 +27,10 @@ android {
     abortOnError false
     warning 'InvalidPackage'
   }
+  packagingOptions {
+    exclude 'META-INF/androidx.exifinterface_exifinterface.version'
+    exclude 'META-INF/proguard/androidx-annotations.pro'
+  }
 }
 
 repositories {
@@ -40,11 +44,12 @@ repositories {
 }
 
 dependencies {
-  compileOnly 'com.facebook.react:react-native:+'
-  compileOnly 'com.facebook.infer.annotation:infer-annotation:+'
-  implementation "com.google.zxing:core:3.3.0"
-  implementation "com.drewnoakes:metadata-extractor:2.9.1"
-  implementation "com.google.android.gms:play-services-vision:${safeExtGet('googlePlayServicesVersion', '15.0.2')}"
+  def googlePlayServicesVisionVersion = safeExtGet('googlePlayServicesVisionVersion', safeExtGet('googlePlayServicesVersion', '17.0.2'))
+
+  implementation 'com.facebook.react:react-native:+'
+  implementation "com.google.zxing:core:3.3.3"
+  implementation "com.drewnoakes:metadata-extractor:2.11.0"
+  generalImplementation "com.google.android.gms:play-services-vision:$googlePlayServicesVisionVersion"
   
   implementation "androidx.exifinterface:exifinterface:1.0.0"
 
