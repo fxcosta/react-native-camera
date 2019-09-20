@@ -1,6 +1,6 @@
 package org.reactnative.camera.events;
 
-import android.support.v4.util.Pools;
+import androidx.core.util.Pools;
 import android.util.SparseArray;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;
@@ -13,18 +13,14 @@ import org.reactnative.barcodedetector.BarcodeFormatUtils;
 
 public class BarcodesDetectedEvent extends Event<BarcodesDetectedEvent> {
 
-  private static final Pools.SynchronizedPool<BarcodesDetectedEvent> EVENTS_POOL =
-      new Pools.SynchronizedPool<>(3);
+  private static final Pools.SynchronizedPool<BarcodesDetectedEvent> EVENTS_POOL = new Pools.SynchronizedPool<>(3);
 
   private SparseArray<Barcode> mBarcodes;
 
   private BarcodesDetectedEvent() {
   }
 
-  public static BarcodesDetectedEvent obtain(
-      int viewTag,
-      SparseArray<Barcode> barcodes
-  ) {
+  public static BarcodesDetectedEvent obtain(int viewTag, SparseArray<Barcode> barcodes) {
     BarcodesDetectedEvent event = EVENTS_POOL.acquire();
     if (event == null) {
       event = new BarcodesDetectedEvent();
@@ -33,18 +29,15 @@ public class BarcodesDetectedEvent extends Event<BarcodesDetectedEvent> {
     return event;
   }
 
-  private void init(
-      int viewTag,
-      SparseArray<Barcode> barcodes
-  ) {
+  private void init(int viewTag, SparseArray<Barcode> barcodes) {
     super.init(viewTag);
     mBarcodes = barcodes;
   }
 
   /**
-   * note(@sjchmiela)
-   * Should the events about detected barcodes coalesce, the best strategy will be
-   * to ensure that events with different barcodes count are always being transmitted.
+   * note(@sjchmiela) Should the events about detected barcodes coalesce, the best
+   * strategy will be to ensure that events with different barcodes count are
+   * always being transmitted.
    */
   @Override
   public short getCoalescingKey() {

@@ -1,6 +1,6 @@
 package org.reactnative.camera.events;
 
-import android.support.v4.util.Pools;
+import androidx.core.util.Pools;
 import android.util.SparseArray;
 
 import org.reactnative.camera.CameraViewManager;
@@ -15,23 +15,18 @@ import com.google.android.cameraview.CameraView;
 import com.google.android.gms.vision.face.Face;
 
 public class FacesDetectedEvent extends Event<FacesDetectedEvent> {
-  private static final Pools.SynchronizedPool<FacesDetectedEvent> EVENTS_POOL =
-      new Pools.SynchronizedPool<>(3);
+  private static final Pools.SynchronizedPool<FacesDetectedEvent> EVENTS_POOL = new Pools.SynchronizedPool<>(3);
 
   private double mScaleX;
   private double mScaleY;
   private SparseArray<Face> mFaces;
   private ImageDimensions mImageDimensions;
 
-  private FacesDetectedEvent() {}
+  private FacesDetectedEvent() {
+  }
 
-  public static FacesDetectedEvent obtain(
-      int viewTag,
-      SparseArray<Face> faces,
-      ImageDimensions dimensions,
-      double scaleX,
-      double scaleY
-  ) {
+  public static FacesDetectedEvent obtain(int viewTag, SparseArray<Face> faces, ImageDimensions dimensions,
+      double scaleX, double scaleY) {
     FacesDetectedEvent event = EVENTS_POOL.acquire();
     if (event == null) {
       event = new FacesDetectedEvent();
@@ -40,13 +35,7 @@ public class FacesDetectedEvent extends Event<FacesDetectedEvent> {
     return event;
   }
 
-  private void init(
-      int viewTag,
-      SparseArray<Face> faces,
-      ImageDimensions dimensions,
-      double scaleX,
-      double scaleY
-  ) {
+  private void init(int viewTag, SparseArray<Face> faces, ImageDimensions dimensions, double scaleX, double scaleY) {
     super.init(viewTag);
     mFaces = faces;
     mImageDimensions = dimensions;
@@ -55,9 +44,9 @@ public class FacesDetectedEvent extends Event<FacesDetectedEvent> {
   }
 
   /**
-   * note(@sjchmiela)
-   * Should the events about detected faces coalesce, the best strategy will be
-   * to ensure that events with different faces count are always being transmitted.
+   * note(@sjchmiela) Should the events about detected faces coalesce, the best
+   * strategy will be to ensure that events with different faces count are always
+   * being transmitted.
    */
   @Override
   public short getCoalescingKey() {
@@ -81,7 +70,7 @@ public class FacesDetectedEvent extends Event<FacesDetectedEvent> {
   private WritableMap serializeEventData() {
     WritableArray facesList = Arguments.createArray();
 
-    for(int i = 0; i < mFaces.size(); i++) {
+    for (int i = 0; i < mFaces.size(); i++) {
       Face face = mFaces.valueAt(i);
       WritableMap serializedFace = FaceDetectorUtils.serializeFace(face, mScaleX, mScaleY);
       if (mImageDimensions.getFacing() == CameraView.FACING_FRONT) {

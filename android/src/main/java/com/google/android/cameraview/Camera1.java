@@ -22,7 +22,7 @@ import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.os.Build;
-import android.support.v4.util.SparseArrayCompat;
+import androidx.collection.SparseArrayCompat;
 import android.view.SurfaceHolder;
 import android.util.Range;
 import android.widget.Toast;
@@ -38,10 +38,9 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-
 @SuppressWarnings("deprecation")
-class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
-                                                MediaRecorder.OnErrorListener, Camera.PreviewCallback {
+class Camera1 extends CameraViewImpl
+        implements MediaRecorder.OnInfoListener, MediaRecorder.OnErrorListener, Camera.PreviewCallback {
 
     private static final int INVALID_CAMERA_ID = -1;
 
@@ -58,12 +57,12 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
     private static final SparseArrayCompat<String> WB_MODES = new SparseArrayCompat<>();
 
     static {
-      WB_MODES.put(Constants.WB_AUTO, Camera.Parameters.WHITE_BALANCE_AUTO);
-      WB_MODES.put(Constants.WB_CLOUDY, Camera.Parameters.WHITE_BALANCE_CLOUDY_DAYLIGHT);
-      WB_MODES.put(Constants.WB_SUNNY, Camera.Parameters.WHITE_BALANCE_DAYLIGHT);
-      WB_MODES.put(Constants.WB_SHADOW, Camera.Parameters.WHITE_BALANCE_SHADE);
-      WB_MODES.put(Constants.WB_FLUORESCENT, Camera.Parameters.WHITE_BALANCE_FLUORESCENT);
-      WB_MODES.put(Constants.WB_INCANDESCENT, Camera.Parameters.WHITE_BALANCE_INCANDESCENT);
+        WB_MODES.put(Constants.WB_AUTO, Camera.Parameters.WHITE_BALANCE_AUTO);
+        WB_MODES.put(Constants.WB_CLOUDY, Camera.Parameters.WHITE_BALANCE_CLOUDY_DAYLIGHT);
+        WB_MODES.put(Constants.WB_SUNNY, Camera.Parameters.WHITE_BALANCE_DAYLIGHT);
+        WB_MODES.put(Constants.WB_SHADOW, Camera.Parameters.WHITE_BALANCE_SHADE);
+        WB_MODES.put(Constants.WB_FLUORESCENT, Camera.Parameters.WHITE_BALANCE_FLUORESCENT);
+        WB_MODES.put(Constants.WB_INCANDESCENT, Camera.Parameters.WHITE_BALANCE_INCANDESCENT);
     }
 
     private int mCameraId;
@@ -83,11 +82,11 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
     private boolean mIsRecording;
 
     private final SizeMap mPreviewSizes = new SizeMap();
-                                                    
+
     private boolean mIsPreviewActive = false;
 
     private final SizeMap mPictureSizes = new SizeMap();
-                                                    
+
     private Size mPictureSize;
 
     private AspectRatio mAspectRatio;
@@ -132,7 +131,7 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
 
             @Override
             public void onSurfaceDestroyed() {
-              stop();
+                stop();
             }
         });
     }
@@ -172,7 +171,9 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
 
             if (mIsRecording) {
                 int deviceOrientation = displayOrientationToOrientationEnum(mDeviceOrientation);
-                mCallback.onVideoRecorded(mVideoPath, mOrientation != Constants.ORIENTATION_AUTO ? mOrientation : deviceOrientation, deviceOrientation);
+                mCallback.onVideoRecorded(mVideoPath,
+                        mOrientation != Constants.ORIENTATION_AUTO ? mOrientation : deviceOrientation,
+                        deviceOrientation);
                 mIsRecording = false;
             }
         }
@@ -210,7 +211,7 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
             mCamera.setPreviewCallback(this);
         }
     }
-                                                    
+
     @Override
     public void resumePreview() {
         startCameraPreview();
@@ -254,32 +255,31 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
         }
         return idealAspectRatios.ratios();
     }
-                                                    
+
     @Override
     SortedSet<Size> getAvailablePictureSizes(AspectRatio ratio) {
         return mPictureSizes.sizes(ratio);
     }
-    
+
     @Override
     void setPictureSize(Size size) {
         if (size == null) {
             if (mAspectRatio == null) {
                 return;
             }
-          SortedSet<Size> sizes = mPictureSizes.sizes(mAspectRatio);
-          if(sizes != null && !sizes.isEmpty())
-          {
-            mPictureSize = sizes.last();
-          }
+            SortedSet<Size> sizes = mPictureSizes.sizes(mAspectRatio);
+            if (sizes != null && !sizes.isEmpty()) {
+                mPictureSize = sizes.last();
+            }
         } else {
-          mPictureSize = size;
+            mPictureSize = size;
         }
         if (mCameraParameters != null && mCamera != null) {
             mCameraParameters.setPictureSize(mPictureSize.getWidth(), mPictureSize.getHeight());
             mCamera.setParameters(mCameraParameters);
         }
     }
-    
+
     @Override
     Size getPictureSize() {
         return mPictureSize;
@@ -428,8 +428,7 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
     @Override
     void takePicture(final ReadableMap options) {
         if (!isCameraOpened()) {
-            throw new IllegalStateException(
-                    "Camera is not ready. Call start() before takePicture().");
+            throw new IllegalStateException("Camera is not ready. Call start() before takePicture().");
         }
         if (!mIsPreviewActive) {
             throw new IllegalStateException("Preview is paused - resume it before taking a picture.");
@@ -448,32 +447,32 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
     }
 
     int orientationEnumToRotation(int orientation) {
-        switch(orientation) {
-            case Constants.ORIENTATION_UP:
-                return 0;
-            case Constants.ORIENTATION_DOWN:
-                return 180;
-            case Constants.ORIENTATION_LEFT:
-                return 270;
-            case Constants.ORIENTATION_RIGHT:
-                return 90;
-            default:
-                return Constants.ORIENTATION_UP;
+        switch (orientation) {
+        case Constants.ORIENTATION_UP:
+            return 0;
+        case Constants.ORIENTATION_DOWN:
+            return 180;
+        case Constants.ORIENTATION_LEFT:
+            return 270;
+        case Constants.ORIENTATION_RIGHT:
+            return 90;
+        default:
+            return Constants.ORIENTATION_UP;
         }
     }
 
     int displayOrientationToOrientationEnum(int rotation) {
         switch (rotation) {
-            case 0:
-                return Constants.ORIENTATION_UP;
-            case 90:
-                return Constants.ORIENTATION_RIGHT;
-            case 180:
-                return Constants.ORIENTATION_DOWN;
-            case 270:
-                return Constants.ORIENTATION_LEFT;
-            default:
-                return 1;
+        case 0:
+            return Constants.ORIENTATION_UP;
+        case 90:
+            return Constants.ORIENTATION_RIGHT;
+        case 180:
+            return Constants.ORIENTATION_DOWN;
+        case 270:
+            return Constants.ORIENTATION_LEFT;
+        default:
+            return 1;
         }
     }
 
@@ -512,7 +511,8 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
     }
 
     @Override
-    boolean record(String path, int maxDuration, int maxFileSize, boolean recordAudio, CamcorderProfile profile, int orientation) {
+    boolean record(String path, int maxDuration, int maxFileSize, boolean recordAudio, CamcorderProfile profile,
+            int orientation) {
         if (!mIsRecording) {
             if (orientation != Constants.ORIENTATION_AUTO) {
                 mOrientation = orientation;
@@ -574,7 +574,7 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
         if (isCameraOpened() && mOrientation == Constants.ORIENTATION_AUTO) {
             mCameraParameters.setRotation(calcCameraRotation(deviceOrientation));
             mCamera.setParameters(mCameraParameters);
-         }
+        }
     }
 
     @Override
@@ -751,7 +751,7 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
     private int calcDisplayOrientation(int screenOrientationDegrees) {
         if (mCameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
             return (360 - (mCameraInfo.orientation + screenOrientationDegrees) % 360) % 360;
-        } else {  // back-facing
+        } else { // back-facing
             return (mCameraInfo.orientation - screenOrientationDegrees + 360) % 360;
         }
     }
@@ -759,8 +759,9 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
     /**
      * Calculate camera rotation
      *
-     * This calculation is applied to the output JPEG either via Exif Orientation tag
-     * or by actually transforming the bitmap. (Determined by vendor camera API implementation)
+     * This calculation is applied to the output JPEG either via Exif Orientation
+     * tag or by actually transforming the bitmap. (Determined by vendor camera API
+     * implementation)
      *
      * Note: This is not the same calculation as the display orientation
      *
@@ -768,12 +769,12 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
      * @return Number of degrees to rotate image in order for it to view correctly.
      */
     private int calcCameraRotation(int screenOrientationDegrees) {
-       if (mCameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
-           return (mCameraInfo.orientation + screenOrientationDegrees) % 360;
-       }
-       // back-facing
-       final int landscapeFlip = isLandscape(screenOrientationDegrees) ? 180 : 0;
-       return (mCameraInfo.orientation + screenOrientationDegrees + landscapeFlip) % 360;
+        if (mCameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
+            return (mCameraInfo.orientation + screenOrientationDegrees) % 360;
+        }
+        // back-facing
+        final int landscapeFlip = isLandscape(screenOrientationDegrees) ? 180 : 0;
+        return (mCameraInfo.orientation + screenOrientationDegrees + landscapeFlip) % 360;
     }
 
     /**
@@ -783,8 +784,7 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
      * @return True if in landscape, false if portrait
      */
     private boolean isLandscape(int orientationDegrees) {
-        return (orientationDegrees == Constants.LANDSCAPE_90 ||
-                orientationDegrees == Constants.LANDSCAPE_270);
+        return (orientationDegrees == Constants.LANDSCAPE_90 || orientationDegrees == Constants.LANDSCAPE_270);
     }
 
     /**
@@ -899,7 +899,8 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
         mCallback.onFramePreview(data, previewSize.width, previewSize.height, mDeviceOrientation);
     }
 
-    private void setUpMediaRecorder(String path, int maxDuration, int maxFileSize, boolean recordAudio, CamcorderProfile profile) {
+    private void setUpMediaRecorder(String path, int maxDuration, int maxFileSize, boolean recordAudio,
+            CamcorderProfile profile) {
         mMediaRecorder = new MediaRecorder();
         mCamera.unlock();
 
@@ -922,7 +923,9 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
         camProfile.videoBitRate = profile.videoBitRate;
         setCamcorderProfile(camProfile, recordAudio);
 
-        mMediaRecorder.setOrientationHint(calcCameraRotation(mOrientation != Constants.ORIENTATION_AUTO ? orientationEnumToRotation(mOrientation) : mDeviceOrientation));
+        mMediaRecorder.setOrientationHint(
+                calcCameraRotation(mOrientation != Constants.ORIENTATION_AUTO ? orientationEnumToRotation(mOrientation)
+                        : mDeviceOrientation));
 
         if (maxDuration != -1) {
             mMediaRecorder.setMaxDuration(maxDuration);
@@ -950,11 +953,13 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
 
         int deviceOrientation = displayOrientationToOrientationEnum(mDeviceOrientation);
         if (mVideoPath == null || !new File(mVideoPath).exists()) {
-            mCallback.onVideoRecorded(null, mOrientation != Constants.ORIENTATION_AUTO ? mOrientation : deviceOrientation, deviceOrientation);
+            mCallback.onVideoRecorded(null,
+                    mOrientation != Constants.ORIENTATION_AUTO ? mOrientation : deviceOrientation, deviceOrientation);
             return;
         }
 
-        mCallback.onVideoRecorded(mVideoPath, mOrientation != Constants.ORIENTATION_AUTO ? mOrientation : deviceOrientation, deviceOrientation);
+        mCallback.onVideoRecorded(mVideoPath,
+                mOrientation != Constants.ORIENTATION_AUTO ? mOrientation : deviceOrientation, deviceOrientation);
         mVideoPath = null;
     }
 
@@ -974,8 +979,8 @@ class Camera1 extends CameraViewImpl implements MediaRecorder.OnInfoListener,
 
     @Override
     public void onInfo(MediaRecorder mr, int what, int extra) {
-        if ( what == MediaRecorder.MEDIA_RECORDER_INFO_MAX_DURATION_REACHED ||
-              what == MediaRecorder.MEDIA_RECORDER_INFO_MAX_FILESIZE_REACHED) {
+        if (what == MediaRecorder.MEDIA_RECORDER_INFO_MAX_DURATION_REACHED
+                || what == MediaRecorder.MEDIA_RECORDER_INFO_MAX_FILESIZE_REACHED) {
             stopRecording();
         }
     }

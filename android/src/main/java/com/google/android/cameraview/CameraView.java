@@ -22,12 +22,14 @@ import android.media.CamcorderProfile;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.os.ParcelableCompat;
-import android.support.v4.os.ParcelableCompatCreatorCallbacks;
-import android.support.v4.view.ViewCompat;
+
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.os.ParcelableCompat;
+import androidx.core.os.ParcelableCompatCreatorCallbacks;
+import androidx.core.view.ViewCompat;
+
 import android.util.AttributeSet;
 import android.util.Range;
 import android.widget.Toast;
@@ -53,7 +55,7 @@ public class CameraView extends FrameLayout {
     public static final int FACING_FRONT = Constants.FACING_FRONT;
 
     /** Direction the camera faces relative to device screen. */
-    @IntDef({FACING_BACK, FACING_FRONT})
+    @IntDef({ FACING_BACK, FACING_FRONT })
     @Retention(RetentionPolicy.SOURCE)
     public @interface Facing {
     }
@@ -75,7 +77,7 @@ public class CameraView extends FrameLayout {
 
     /** The mode for for the camera device's flash control */
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({FLASH_OFF, FLASH_ON, FLASH_TORCH, FLASH_AUTO, FLASH_RED_EYE})
+    @IntDef({ FLASH_OFF, FLASH_ON, FLASH_TORCH, FLASH_AUTO, FLASH_RED_EYE })
     public @interface Flash {
     }
 
@@ -100,7 +102,7 @@ public class CameraView extends FrameLayout {
     @SuppressWarnings("WrongConstant")
     public CameraView(Context context, AttributeSet attrs, int defStyleAttr, boolean fallbackToOldApi) {
         super(context, attrs, defStyleAttr);
-        if (isInEditMode()){
+        if (isInEditMode()) {
             mCallbacks = null;
             mDisplayOrientationDetector = null;
             return;
@@ -158,7 +160,7 @@ public class CameraView extends FrameLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (isInEditMode()){
+        if (isInEditMode()) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             return;
         }
@@ -178,8 +180,7 @@ public class CameraView extends FrameLayout {
                 if (heightMode == MeasureSpec.AT_MOST) {
                     height = Math.min(height, MeasureSpec.getSize(heightMeasureSpec));
                 }
-                super.onMeasure(widthMeasureSpec,
-                        MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
+                super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
             } else if (widthMode != MeasureSpec.EXACTLY && heightMode == MeasureSpec.EXACTLY) {
                 final AspectRatio ratio = getAspectRatio();
                 assert ratio != null;
@@ -187,8 +188,7 @@ public class CameraView extends FrameLayout {
                 if (widthMode == MeasureSpec.AT_MOST) {
                     width = Math.min(width, MeasureSpec.getSize(widthMeasureSpec));
                 }
-                super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
-                        heightMeasureSpec);
+                super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), heightMeasureSpec);
             } else {
                 super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             }
@@ -204,14 +204,11 @@ public class CameraView extends FrameLayout {
         }
         assert ratio != null;
         if (height < width * ratio.getY() / ratio.getX()) {
-            mImpl.getView().measure(
-                    MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
-                    MeasureSpec.makeMeasureSpec(width * ratio.getY() / ratio.getX(),
-                            MeasureSpec.EXACTLY));
+            mImpl.getView().measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(width * ratio.getY() / ratio.getX(), MeasureSpec.EXACTLY));
         } else {
             mImpl.getView().measure(
-                    MeasureSpec.makeMeasureSpec(height * ratio.getX() / ratio.getY(),
-                            MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(height * ratio.getX() / ratio.getY(), MeasureSpec.EXACTLY),
                     MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
         }
     }
@@ -282,7 +279,6 @@ public class CameraView extends FrameLayout {
         start();
     }
 
-
     /**
      * Open a camera device and start showing camera preview. This is typically
      * called from {@link Activity#onResume()}.
@@ -337,8 +333,8 @@ public class CameraView extends FrameLayout {
     }
 
     /**
-     * @param adjustViewBounds {@code true} if you want the CameraView to adjust its bounds to
-     *                         preserve the aspect ratio of camera.
+     * @param adjustViewBounds {@code true} if you want the CameraView to adjust its
+     *                         bounds to preserve the aspect ratio of camera.
      * @see #getAdjustViewBounds()
      */
     public void setAdjustViewBounds(boolean adjustViewBounds) {
@@ -349,8 +345,8 @@ public class CameraView extends FrameLayout {
     }
 
     /**
-     * @return True when this CameraView is adjusting its bounds to preserve the aspect ratio of
-     * camera.
+     * @return True when this CameraView is adjusting its bounds to preserve the
+     *         aspect ratio of camera.
      * @see #setAdjustViewBounds(boolean)
      */
     public boolean getAdjustViewBounds() {
@@ -358,10 +354,10 @@ public class CameraView extends FrameLayout {
     }
 
     public View getView() {
-      if (mImpl != null) {
-        return mImpl.getView();
-      }
-      return null;
+        if (mImpl != null) {
+            return mImpl.getView();
+        }
+        return null;
     }
 
     /**
@@ -381,7 +377,7 @@ public class CameraView extends FrameLayout {
      */
     @Facing
     public int getFacing() {
-        //noinspection WrongConstant
+        // noinspection WrongConstant
         return mImpl.getFacing();
     }
 
@@ -406,22 +402,25 @@ public class CameraView extends FrameLayout {
     /**
      * Gets the current aspect ratio of camera.
      *
-     * @return The current {@link AspectRatio}. Can be {@code null} if no camera is opened yet.
+     * @return The current {@link AspectRatio}. Can be {@code null} if no camera is
+     *         opened yet.
      */
     @Nullable
     public AspectRatio getAspectRatio() {
         return mImpl.getAspectRatio();
     }
-    
+
     /**
-     * Gets all the picture sizes for particular ratio supported by the current camera.
+     * Gets all the picture sizes for particular ratio supported by the current
+     * camera.
      *
-     * @param ratio {@link AspectRatio} for which the available image sizes will be returned.
+     * @param ratio {@link AspectRatio} for which the available image sizes will be
+     *              returned.
      */
     public SortedSet<Size> getAvailablePictureSizes(@NonNull AspectRatio ratio) {
         return mImpl.getAvailablePictureSizes(ratio);
     }
-    
+
     /**
      * Sets the size of taken pictures.
      *
@@ -435,7 +434,7 @@ public class CameraView extends FrameLayout {
             // regra que defini
         }
     }
-    
+
     /**
      * Gets the size of pictures that will be taken.
      */
@@ -444,11 +443,11 @@ public class CameraView extends FrameLayout {
     }
 
     /**
-     * Enables or disables the continuous auto-focus mode. When the current camera doesn't support
-     * auto-focus, calling this method will be ignored.
+     * Enables or disables the continuous auto-focus mode. When the current camera
+     * doesn't support auto-focus, calling this method will be ignored.
      *
-     * @param autoFocus {@code true} to enable continuous auto-focus mode. {@code false} to
-     *                  disable it.
+     * @param autoFocus {@code true} to enable continuous auto-focus mode.
+     *                  {@code false} to disable it.
      */
     public void setAutoFocus(boolean autoFocus) {
         mImpl.setAutoFocus(autoFocus);
@@ -457,8 +456,9 @@ public class CameraView extends FrameLayout {
     /**
      * Returns whether the continuous auto-focus mode is enabled.
      *
-     * @return {@code true} if the continuous auto-focus mode is enabled. {@code false} if it is
-     * disabled, or if it is not supported by the current camera.
+     * @return {@code true} if the continuous auto-focus mode is enabled.
+     *         {@code false} if it is disabled, or if it is not supported by the
+     *         current camera.
      */
     public boolean getAutoFocus() {
         return mImpl.getAutoFocus();
@@ -480,7 +480,7 @@ public class CameraView extends FrameLayout {
      */
     @Flash
     public int getFlash() {
-        //noinspection WrongConstant
+        // noinspection WrongConstant
         return mImpl.getFlash();
     }
 
@@ -497,20 +497,22 @@ public class CameraView extends FrameLayout {
         mImpl.setFocusDepth(value);
     }
 
-    public float getFocusDepth() { return mImpl.getFocusDepth(); }
+    public float getFocusDepth() {
+        return mImpl.getFocusDepth();
+    }
 
     public void setExposureCompensation(float exposureCompensation) {
         mImpl.setExposureCompensation(exposureCompensation);
     }
 
     public void setZoomRegionVertical(int zoomRegionVertical) {
-        if(Build.VERSION.SDK_INT > 21) {
+        if (Build.VERSION.SDK_INT > 21) {
             mImpl.setZoomRegionVertical(zoomRegionVertical);
         }
     }
 
     public void setZoomRegionHorizontal(int zoomRegionHorizontal) {
-        if(Build.VERSION.SDK_INT > 21) {
+        if (Build.VERSION.SDK_INT > 21) {
             mImpl.setZoomRegionHorizontal(zoomRegionHorizontal);
         }
     }
@@ -536,24 +538,28 @@ public class CameraView extends FrameLayout {
     }
 
     public void setZoom(float zoom) {
-      mImpl.setZoom(zoom);
+        mImpl.setZoom(zoom);
     }
 
     public float getZoom() {
-      return mImpl.getZoom();
+        return mImpl.getZoom();
     }
 
     public void setWhiteBalance(int whiteBalance) {
-      mImpl.setWhiteBalance(whiteBalance);
+        mImpl.setWhiteBalance(whiteBalance);
     }
 
     public int getWhiteBalance() {
-      return mImpl.getWhiteBalance();
+        return mImpl.getWhiteBalance();
     }
 
-    public void setScanning(boolean isScanning) { mImpl.setScanning(isScanning);}
+    public void setScanning(boolean isScanning) {
+        mImpl.setScanning(isScanning);
+    }
 
-    public boolean getScanning() { return mImpl.getScanning(); }
+    public boolean getScanning() {
+        return mImpl.getScanning();
+    }
 
     /**
      * Take a picture. The result will be returned to
@@ -566,24 +572,25 @@ public class CameraView extends FrameLayout {
     /**
      * Record a video and save it to file. The result will be returned to
      * {@link Callback#onVideoRecorded(CameraView, String, int, int)}.
-     * @param path Path to file that video will be saved to.
+     * 
+     * @param path        Path to file that video will be saved to.
      * @param maxDuration Maximum duration of the recording, in seconds.
      * @param maxFileSize Maximum recording file size, in bytes.
-     * @param profile Quality profile of the recording.
+     * @param profile     Quality profile of the recording.
      */
-    public boolean record(String path, int maxDuration, int maxFileSize,
-                          boolean recordAudio, CamcorderProfile profile, int orientation) {
+    public boolean record(String path, int maxDuration, int maxFileSize, boolean recordAudio, CamcorderProfile profile,
+            int orientation) {
         return mImpl.record(path, maxDuration, maxFileSize, recordAudio, profile, orientation);
     }
 
     public void stopRecording() {
         mImpl.stopRecording();
     }
-    
+
     public void resumePreview() {
         mImpl.resumePreview();
     }
-    
+
     public void pausePreview() {
         mImpl.pausePreview();
     }
@@ -687,7 +694,7 @@ public class CameraView extends FrameLayout {
         int whiteBalance;
 
         boolean scanning;
-        
+
         Size pictureSize;
 
         @SuppressWarnings("WrongConstant")
@@ -724,20 +731,20 @@ public class CameraView extends FrameLayout {
             out.writeParcelable(pictureSize, flags);
         }
 
-        public static final Creator<SavedState> CREATOR
-                = ParcelableCompat.newCreator(new ParcelableCompatCreatorCallbacks<SavedState>() {
+        public static final Creator<SavedState> CREATOR = ParcelableCompat
+                .newCreator(new ParcelableCompatCreatorCallbacks<SavedState>() {
 
-            @Override
-            public SavedState createFromParcel(Parcel in, ClassLoader loader) {
-                return new SavedState(in, loader);
-            }
+                    @Override
+                    public SavedState createFromParcel(Parcel in, ClassLoader loader) {
+                        return new SavedState(in, loader);
+                    }
 
-            @Override
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
+                    @Override
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
 
-        });
+                });
 
     }
 
@@ -784,7 +791,8 @@ public class CameraView extends FrameLayout {
         public void onFramePreview(CameraView cameraView, byte[] data, int width, int height, int orientation) {
         }
 
-        public void onMountError(CameraView cameraView) {}
+        public void onMountError(CameraView cameraView) {
+        }
     }
 
 }

@@ -16,14 +16,15 @@
 
 package com.google.android.cameraview;
 
-import android.support.v4.util.ArrayMap;
+import androidx.collection.ArrayMap;
 
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
- * A collection class that automatically groups {@link Size}s by their {@link AspectRatio}s.
+ * A collection class that automatically groups {@link Size}s by their
+ * {@link AspectRatio}s.
  */
 class SizeMap {
 
@@ -33,7 +34,8 @@ class SizeMap {
      * Add a new {@link Size} to this collection.
      *
      * @param size The size to add.
-     * @return {@code true} if it is added, {@code false} if it already exists and is not added.
+     * @return {@code true} if it is added, {@code false} if it already exists and
+     *         is not added.
      */
     public boolean add(Size size) {
         for (AspectRatio ratio : mRatios.keySet()) {

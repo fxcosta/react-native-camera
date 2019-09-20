@@ -1,6 +1,6 @@
 package org.reactnative.camera.events;
 
-import android.support.v4.util.Pools;
+import androidx.core.util.Pools;
 import android.util.SparseArray;
 
 import com.facebook.react.bridge.Arguments;
@@ -18,26 +18,20 @@ import org.reactnative.camera.CameraViewManager;
 import org.reactnative.camera.utils.ImageDimensions;
 import org.reactnative.facedetector.FaceDetectorUtils;
 
-
 public class TextRecognizedEvent extends Event<TextRecognizedEvent> {
 
-  private static final Pools.SynchronizedPool<TextRecognizedEvent> EVENTS_POOL =
-      new Pools.SynchronizedPool<>(3);
-
+  private static final Pools.SynchronizedPool<TextRecognizedEvent> EVENTS_POOL = new Pools.SynchronizedPool<>(3);
 
   private double mScaleX;
   private double mScaleY;
   private SparseArray<TextBlock> mTextBlocks;
   private ImageDimensions mImageDimensions;
 
-  private TextRecognizedEvent() {}
+  private TextRecognizedEvent() {
+  }
 
-  public static TextRecognizedEvent obtain(
-      int viewTag,
-      SparseArray<TextBlock> textBlocks,
-      ImageDimensions dimensions,
-      double scaleX,
-      double scaleY) {
+  public static TextRecognizedEvent obtain(int viewTag, SparseArray<TextBlock> textBlocks, ImageDimensions dimensions,
+      double scaleX, double scaleY) {
     TextRecognizedEvent event = EVENTS_POOL.acquire();
     if (event == null) {
       event = new TextRecognizedEvent();
@@ -46,11 +40,7 @@ public class TextRecognizedEvent extends Event<TextRecognizedEvent> {
     return event;
   }
 
-  private void init(
-      int viewTag,
-      SparseArray<TextBlock> textBlocks,
-      ImageDimensions dimensions,
-      double scaleX,
+  private void init(int viewTag, SparseArray<TextBlock> textBlocks, ImageDimensions dimensions, double scaleX,
       double scaleY) {
     super.init(viewTag);
     mTextBlocks = textBlocks;
@@ -117,7 +107,7 @@ public class TextRecognizedEvent extends Event<TextRecognizedEvent> {
       type_ = "block";
     } else if (text instanceof Line) {
       type_ = "line";
-    } else /*if (text instanceof Element)*/ {
+    } else /* if (text instanceof Element) */ {
       type_ = "element";
     }
     encodedText.putString("type", type_);
@@ -129,8 +119,8 @@ public class TextRecognizedEvent extends Event<TextRecognizedEvent> {
     ReadableMap faceBounds = text.getMap("bounds");
 
     ReadableMap oldOrigin = faceBounds.getMap("origin");
-    WritableMap mirroredOrigin = FaceDetectorUtils.positionMirroredHorizontally(
-        oldOrigin, mImageDimensions.getWidth(), mScaleX);
+    WritableMap mirroredOrigin = FaceDetectorUtils.positionMirroredHorizontally(oldOrigin, mImageDimensions.getWidth(),
+        mScaleX);
 
     double translateX = -faceBounds.getMap("size").getDouble("width");
     WritableMap translatedMirroredOrigin = FaceDetectorUtils.positionTranslatedHorizontally(mirroredOrigin, translateX);

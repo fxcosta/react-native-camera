@@ -3,7 +3,7 @@ package com.lwansbrough.RCTCamera;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.support.media.ExifInterface;
+import androidx.exifinterface.media.ExifInterface;
 import android.util.Base64;
 import android.util.Log;
 
@@ -50,15 +50,7 @@ public class MutableImage {
 
         m.preScale(-1, 1);
 
-        Bitmap bitmap = Bitmap.createBitmap(
-                currentRepresentation,
-                0,
-                0,
-                getWidth(),
-                getHeight(),
-                m,
-                false
-        );
+        Bitmap bitmap = Bitmap.createBitmap(currentRepresentation, 0, 0, getWidth(), getHeight(), m, false);
 
         if (bitmap == null)
             throw new ImageMutationFailedException("failed to mirror");
@@ -75,7 +67,7 @@ public class MutableImage {
                 return;
             } else if (exifIFD0Directory.containsTag(ExifIFD0Directory.TAG_ORIENTATION)) {
                 int exifOrientation = exifIFD0Directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
-                if(exifOrientation != 1) {
+                if (exifOrientation != 1) {
                     rotate(exifOrientation);
                     exifIFD0Directory.setInt(ExifIFD0Directory.TAG_ORIENTATION, 1);
                 }
@@ -96,57 +88,47 @@ public class MutableImage {
             targetPictureHeight = pictureHeight;
             targetPictureWidth = (int) (pictureHeight * previewRatio);
         }
-        this.currentRepresentation = Bitmap.createBitmap(
-                this.currentRepresentation,
-                (pictureWidth - targetPictureWidth) / 2,
-                (pictureHeight - targetPictureHeight) / 2,
-                targetPictureWidth,
+        this.currentRepresentation = Bitmap.createBitmap(this.currentRepresentation,
+                (pictureWidth - targetPictureWidth) / 2, (pictureHeight - targetPictureHeight) / 2, targetPictureWidth,
                 targetPictureHeight);
     }
 
-    //see http://www.impulseadventure.com/photo/exif-orientation.html
+    // see http://www.impulseadventure.com/photo/exif-orientation.html
     private void rotate(int exifOrientation) throws ImageMutationFailedException {
         final Matrix bitmapMatrix = new Matrix();
         switch (exifOrientation) {
-            case 1:
-                return;//no rotation required
-            case 2:
-                bitmapMatrix.postScale(-1, 1);
-                break;
-            case 3:
-                bitmapMatrix.postRotate(180);
-                break;
-            case 4:
-                bitmapMatrix.postRotate(180);
-                bitmapMatrix.postScale(-1, 1);
-                break;
-            case 5:
-                bitmapMatrix.postRotate(90);
-                bitmapMatrix.postScale(-1, 1);
-                break;
-            case 6:
-                bitmapMatrix.postRotate(90);
-                break;
-            case 7:
-                bitmapMatrix.postRotate(270);
-                bitmapMatrix.postScale(-1, 1);
-                break;
-            case 8:
-                bitmapMatrix.postRotate(270);
-                break;
-            default:
-                break;
+        case 1:
+            return;// no rotation required
+        case 2:
+            bitmapMatrix.postScale(-1, 1);
+            break;
+        case 3:
+            bitmapMatrix.postRotate(180);
+            break;
+        case 4:
+            bitmapMatrix.postRotate(180);
+            bitmapMatrix.postScale(-1, 1);
+            break;
+        case 5:
+            bitmapMatrix.postRotate(90);
+            bitmapMatrix.postScale(-1, 1);
+            break;
+        case 6:
+            bitmapMatrix.postRotate(90);
+            break;
+        case 7:
+            bitmapMatrix.postRotate(270);
+            bitmapMatrix.postScale(-1, 1);
+            break;
+        case 8:
+            bitmapMatrix.postRotate(270);
+            break;
+        default:
+            break;
         }
 
-        Bitmap transformedBitmap = Bitmap.createBitmap(
-                currentRepresentation,
-                0,
-                0,
-                getWidth(),
-                getHeight(),
-                bitmapMatrix,
-                false
-        );
+        Bitmap transformedBitmap = Bitmap.createBitmap(currentRepresentation, 0, 0, getWidth(), getHeight(),
+                bitmapMatrix, false);
 
         if (transformedBitmap == null)
             throw new ImageMutationFailedException("failed to rotate");
@@ -188,11 +170,11 @@ public class MutableImage {
             }
 
             // Add missing exif data from a sub directory
-            ExifSubIFDDirectory directory = originalImageMetaData()
-               .getFirstDirectoryOfType(ExifSubIFDDirectory.class);
+            ExifSubIFDDirectory directory = originalImageMetaData().getFirstDirectoryOfType(ExifSubIFDDirectory.class);
             for (Tag tag : directory.getTags()) {
                 int tagType = tag.getTagType();
-                // As some of exif data does not follow naming of the ExifInterface the names need
+                // As some of exif data does not follow naming of the ExifInterface the names
+                // need
                 // to be transformed into Upper camel case format.
                 String tagName = tag.getTagName().replaceAll(" ", "");
                 Object object = directory.getObject(tagType);
@@ -205,22 +187,24 @@ public class MutableImage {
 
             writeLocationExifData(options, exif);
 
-            if(hasBeenReoriented)
+            if (hasBeenReoriented)
                 rewriteOrientation(exif);
 
             exif.saveAttributes();
-        } catch (ImageProcessingException  | IOException e) {
+        } catch (ImageProcessingException | IOException e) {
             Log.e(TAG, "failed to save exif data", e);
         }
     }
 
-    // Reformats exposure time value to match ExifInterface format. Example 1/11 -> 0.0909
-    // Even the value is formatted as double it is returned as a String because exif.setAttribute requires it.
+    // Reformats exposure time value to match ExifInterface format. Example 1/11 ->
+    // 0.0909
+    // Even the value is formatted as double it is returned as a String because
+    // exif.setAttribute requires it.
     private String convertExposureTimeToDoubleFormat(String exposureTime) {
-        if(!exposureTime.contains("/"))
-          return "";
+        if (!exposureTime.contains("/"))
+            return "";
 
-        String exposureFractions[]= exposureTime.split("/");
+        String exposureFractions[] = exposureTime.split("/");
         double divider = Double.parseDouble(exposureFractions[1]);
         double exposureTimeAsDouble = 1.0f / divider;
         return Double.toString(exposureTimeAsDouble);
@@ -231,7 +215,7 @@ public class MutableImage {
     }
 
     private void writeLocationExifData(ReadableMap options, ExifInterface exif) {
-        if(!options.hasKey("metadata"))
+        if (!options.hasKey("metadata"))
             return;
 
         ReadableMap metadata = options.getMap("metadata");
@@ -239,7 +223,7 @@ public class MutableImage {
             return;
 
         ReadableMap location = metadata.getMap("location");
-        if(!location.hasKey("coords"))
+        if (!location.hasKey("coords"))
             return;
 
         try {
@@ -254,11 +238,9 @@ public class MutableImage {
     }
 
     private Metadata originalImageMetaData() throws ImageProcessingException, IOException {
-        if(this.originalImageMetaData == null) {//this is expensive, don't do it more than once
+        if (this.originalImageMetaData == null) {// this is expensive, don't do it more than once
             originalImageMetaData = ImageMetadataReader.readMetadata(
-                    new BufferedInputStream(new ByteArrayInputStream(originalImageData)),
-                    originalImageData.length
-            );
+                    new BufferedInputStream(new ByteArrayInputStream(originalImageData)), originalImageData.length);
         }
         return originalImageMetaData;
     }

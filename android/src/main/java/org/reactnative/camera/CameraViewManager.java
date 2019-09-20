@@ -1,6 +1,6 @@
 package org.reactnative.camera;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
@@ -16,15 +16,11 @@ import java.util.Map;
 
 public class CameraViewManager extends ViewGroupManager<RNCameraView> {
   public enum Events {
-    EVENT_CAMERA_READY("onCameraReady"),
-    EVENT_ON_MOUNT_ERROR("onMountError"),
-    EVENT_ON_BAR_CODE_READ("onBarCodeRead"),
-    EVENT_ON_FACES_DETECTED("onFacesDetected"),
-    EVENT_ON_BARCODES_DETECTED("onGoogleVisionBarcodesDetected"),
+    EVENT_CAMERA_READY("onCameraReady"), EVENT_ON_MOUNT_ERROR("onMountError"), EVENT_ON_BAR_CODE_READ("onBarCodeRead"),
+    EVENT_ON_FACES_DETECTED("onFacesDetected"), EVENT_ON_BARCODES_DETECTED("onGoogleVisionBarcodesDetected"),
     EVENT_ON_FACE_DETECTION_ERROR("onFaceDetectionError"),
     EVENT_ON_BARCODE_DETECTION_ERROR("onGoogleVisionBarcodeDetectionError"),
-    EVENT_ON_TEXT_RECOGNIZED("onTextRecognized"),
-    EVENT_ON_PICTURE_TAKEN("onPictureTaken"),
+    EVENT_ON_TEXT_RECOGNIZED("onTextRecognized"), EVENT_ON_PICTURE_TAKEN("onPictureTaken"),
     EVENT_ON_PICTURE_SAVED("onPictureSaved");
 
     private final String mName;
@@ -121,7 +117,7 @@ public class CameraViewManager extends ViewGroupManager<RNCameraView> {
   public void setWhiteBalance(RNCameraView view, int whiteBalance) {
     view.setWhiteBalance(whiteBalance);
   }
-  
+
   @ReactProp(name = "pictureSize")
   public void setPictureSize(RNCameraView view, String size) {
     view.setPictureSize(size.equals("None") ? null : Size.parse(size));

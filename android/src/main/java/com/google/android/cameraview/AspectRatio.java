@@ -18,23 +18,24 @@ package com.google.android.cameraview;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.v4.util.SparseArrayCompat;
+import androidx.annotation.NonNull;
+import androidx.collection.SparseArrayCompat;
 
 /**
- * Immutable class for describing proportional relationship between width and height.
+ * Immutable class for describing proportional relationship between width and
+ * height.
  */
 public class AspectRatio implements Comparable<AspectRatio>, Parcelable {
 
-    private final static SparseArrayCompat<SparseArrayCompat<AspectRatio>> sCache
-            = new SparseArrayCompat<>(16);
+    private final static SparseArrayCompat<SparseArrayCompat<AspectRatio>> sCache = new SparseArrayCompat<>(16);
 
     private final int mX;
     private final int mY;
 
     /**
-     * Returns an instance of {@link AspectRatio} specified by {@code x} and {@code y} values.
-     * The values {@code x} and {@code} will be reduced by their greatest common divider.
+     * Returns an instance of {@link AspectRatio} specified by {@code x} and
+     * {@code y} values. The values {@code x} and {@code} will be reduced by their
+     * greatest common divider.
      *
      * @param x The width
      * @param y The height
@@ -146,7 +147,7 @@ public class AspectRatio implements Comparable<AspectRatio>, Parcelable {
      * @return The inverse of this {@link AspectRatio}.
      */
     public AspectRatio inverse() {
-        //noinspection SuspiciousNameCombination
+        // noinspection SuspiciousNameCombination
         return AspectRatio.of(mY, mX);
     }
 
@@ -170,8 +171,7 @@ public class AspectRatio implements Comparable<AspectRatio>, Parcelable {
         dest.writeInt(mY);
     }
 
-    public static final Parcelable.Creator<AspectRatio> CREATOR
-            = new Parcelable.Creator<AspectRatio>() {
+    public static final Parcelable.Creator<AspectRatio> CREATOR = new Parcelable.Creator<AspectRatio>() {
 
         @Override
         public AspectRatio createFromParcel(Parcel source) {

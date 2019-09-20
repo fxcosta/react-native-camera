@@ -1,6 +1,6 @@
 package com.lwansbrough.RCTCamera;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.facebook.infer.annotation.Assertions;
 import com.facebook.react.bridge.ReadableArray;
@@ -30,28 +30,24 @@ public class RCTCameraViewManager extends ViewGroupManager<RCTCameraView> {
 
     @Override
     public Map<String, Integer> getCommandsMap() {
-        return MapBuilder.of(
-                "stopPreview",
-                COMMAND_STOP_PREVIEW,
-                "startPreview",
-                COMMAND_START_PREVIEW);
+        return MapBuilder.of("stopPreview", COMMAND_STOP_PREVIEW, "startPreview", COMMAND_START_PREVIEW);
     }
 
     @Override
     public void receiveCommand(RCTCameraView view, int commandType, @Nullable ReadableArray args) {
         Assertions.assertNotNull(view);
         switch (commandType) {
-            case COMMAND_STOP_PREVIEW: {
-                view.stopPreview();
-                return;
-            }
-            case COMMAND_START_PREVIEW: {
-                view.startPreview();
-                return;
-            }
-            default:
-                throw new IllegalArgumentException(
-                        String.format("Unsupported command %d received by %s.", commandType, getClass().getSimpleName()));
+        case COMMAND_STOP_PREVIEW: {
+            view.stopPreview();
+            return;
+        }
+        case COMMAND_START_PREVIEW: {
+            view.startPreview();
+            return;
+        }
+        default:
+            throw new IllegalArgumentException(
+                    String.format("Unsupported command %d received by %s.", commandType, getClass().getSimpleName()));
         }
     }
 
@@ -62,15 +58,18 @@ public class RCTCameraViewManager extends ViewGroupManager<RCTCameraView> {
 
     @ReactProp(name = "captureMode")
     public void setCaptureMode(RCTCameraView view, final int captureMode) {
-        // Note that this in practice only performs any additional setup necessary for each mode;
-        // the actual indication to capture a still or record a video when capture() is called is
+        // Note that this in practice only performs any additional setup necessary for
+        // each mode;
+        // the actual indication to capture a still or record a video when capture() is
+        // called is
         // still ultimately decided upon by what it in the options sent to capture().
         view.setCaptureMode(captureMode);
     }
 
     @ReactProp(name = "captureTarget")
     public void setCaptureTarget(RCTCameraView view, int captureTarget) {
-        // No reason to handle this props value here since it's passed again to the RCTCameraModule capture method
+        // No reason to handle this props value here since it's passed again to the
+        // RCTCameraModule capture method
     }
 
     @ReactProp(name = "type")

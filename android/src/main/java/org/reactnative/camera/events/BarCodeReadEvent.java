@@ -1,6 +1,6 @@
 package org.reactnative.camera.events;
 
-import android.support.v4.util.Pools;
+import androidx.core.util.Pools;
 
 import org.reactnative.camera.CameraViewManager;
 import com.facebook.react.bridge.Arguments;
@@ -15,14 +15,14 @@ import java.util.Date;
 import java.util.Formatter;
 
 public class BarCodeReadEvent extends Event<BarCodeReadEvent> {
-  private static final Pools.SynchronizedPool<BarCodeReadEvent> EVENTS_POOL =
-      new Pools.SynchronizedPool<>(3);
+  private static final Pools.SynchronizedPool<BarCodeReadEvent> EVENTS_POOL = new Pools.SynchronizedPool<>(3);
 
   private Result mBarCode;
   private int mWidth;
   private int mHeight;
 
-  private BarCodeReadEvent() {}
+  private BarCodeReadEvent() {
+  }
 
   public static BarCodeReadEvent obtain(int viewTag, Result barCode, int width, int height) {
     BarCodeReadEvent event = EVENTS_POOL.acquire();
@@ -41,11 +41,11 @@ public class BarCodeReadEvent extends Event<BarCodeReadEvent> {
   }
 
   /**
-   * We want every distinct barcode to be reported to the JS listener.
-   * If we return some static value as a coalescing key there may be two barcode events
-   * containing two different barcodes waiting to be transmitted to JS
-   * that would get coalesced (because both of them would have the same coalescing key).
-   * So let's differentiate them with a hash of the contents (mod short's max value).
+   * We want every distinct barcode to be reported to the JS listener. If we
+   * return some static value as a coalescing key there may be two barcode events
+   * containing two different barcodes waiting to be transmitted to JS that would
+   * get coalesced (because both of them would have the same coalescing key). So
+   * let's differentiate them with a hash of the contents (mod short's max value).
    */
   @Override
   public short getCoalescingKey() {
@@ -78,13 +78,13 @@ public class BarCodeReadEvent extends Event<BarCodeReadEvent> {
       }
       event.putString("rawData", formatter.toString());
       formatter.close();
-    } 
+    }
 
     event.putString("type", mBarCode.getBarcodeFormat().toString());
     WritableArray resultPoints = Arguments.createArray();
     ResultPoint[] points = mBarCode.getResultPoints();
-    for (ResultPoint point: points) {
-      if(point!=null) {
+    for (ResultPoint point : points) {
+      if (point != null) {
         WritableMap newPoint = Arguments.createMap();
         newPoint.putString("x", String.valueOf(point.getX()));
         newPoint.putString("y", String.valueOf(point.getY()));

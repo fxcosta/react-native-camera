@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.media.ExifInterface;
+import androidx.exifinterface.media.ExifInterface;
 import android.util.Base64;
 
 import org.reactnative.camera.RNCameraViewHelper;
@@ -33,7 +33,8 @@ public class ResolveTakenPictureAsyncTask extends AsyncTask<Void, Void, Writable
     private int mDeviceOrientation;
     private PictureSavedDelegate mPictureSavedDelegate;
 
-    public ResolveTakenPictureAsyncTask(byte[] imageData, Promise promise, ReadableMap options, File cacheDirectory, int deviceOrientation, PictureSavedDelegate delegate) {
+    public ResolveTakenPictureAsyncTask(byte[] imageData, Promise promise, ReadableMap options, File cacheDirectory,
+            int deviceOrientation, PictureSavedDelegate delegate) {
         mPromise = promise;
         mOptions = options;
         mImageData = imageData;
@@ -52,7 +53,8 @@ public class ResolveTakenPictureAsyncTask extends AsyncTask<Void, Void, Writable
         ByteArrayInputStream inputStream = null;
 
         response.putInt("deviceOrientation", mDeviceOrientation);
-        response.putInt("pictureOrientation", mOptions.hasKey("orientation") ? mOptions.getInt("orientation") : mDeviceOrientation);
+        response.putInt("pictureOrientation",
+                mOptions.hasKey("orientation") ? mOptions.getInt("orientation") : mDeviceOrientation);
 
         if (mOptions.hasKey("skipProcessing")) {
             try {
@@ -93,7 +95,8 @@ public class ResolveTakenPictureAsyncTask extends AsyncTask<Void, Void, Writable
                         ExifInterface.ORIENTATION_UNDEFINED);
 
                 // Rotate the bitmap to the proper orientation if needed
-                if (mOptions.hasKey("fixOrientation") && mOptions.getBoolean("fixOrientation") && orientation != ExifInterface.ORIENTATION_UNDEFINED) {
+                if (mOptions.hasKey("fixOrientation") && mOptions.getBoolean("fixOrientation")
+                        && orientation != ExifInterface.ORIENTATION_UNDEFINED) {
                     mBitmap = rotateBitmap(mBitmap, getImageRotation(orientation));
                 }
                 if (mOptions.hasKey("width")) {
@@ -156,7 +159,8 @@ public class ResolveTakenPictureAsyncTask extends AsyncTask<Void, Void, Writable
             }
         }
 
-        // An exception had to occur, promise has already been rejected. Do not try to resolve it again.
+        // An exception had to occur, promise has already been rejected. Do not try to
+        // resolve it again.
         return null;
     }
 
@@ -231,7 +235,8 @@ public class ResolveTakenPictureAsyncTask extends AsyncTask<Void, Void, Writable
     protected void onPostExecute(WritableMap response) {
         super.onPostExecute(response);
 
-        // If the response is not null everything went well and we can resolve the promise.
+        // If the response is not null everything went well and we can resolve the
+        // promise.
         if (response != null) {
             if (mOptions.hasKey("fastMode") && mOptions.getBoolean("fastMode")) {
                 WritableMap wrapper = Arguments.createMap();
