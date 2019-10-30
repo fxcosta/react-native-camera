@@ -213,7 +213,7 @@ public class CameraModule extends ReactContextBaseJavaModule {
       }
     });
   }
-    
+
     @ReactMethod
     public void pausePreview(final int viewTag) {
         final ReactApplicationContext context = getReactApplicationContext();
@@ -222,7 +222,7 @@ public class CameraModule extends ReactContextBaseJavaModule {
             @Override
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 final RNCameraView cameraView;
-                
+
                 try {
                     cameraView = (RNCameraView) nativeViewHierarchyManager.resolveView(viewTag);
                     if (cameraView.isCameraOpened()) {
@@ -234,7 +234,7 @@ public class CameraModule extends ReactContextBaseJavaModule {
             }
         });
     }
-    
+
     @ReactMethod
     public void resumePreview(final int viewTag) {
         final ReactApplicationContext context = getReactApplicationContext();
@@ -243,7 +243,7 @@ public class CameraModule extends ReactContextBaseJavaModule {
             @Override
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 final RNCameraView cameraView;
-                
+
                 try {
                     cameraView = (RNCameraView) nativeViewHierarchyManager.resolveView(viewTag);
                     if (cameraView.isCameraOpened()) {
@@ -324,36 +324,36 @@ public class CameraModule extends ReactContextBaseJavaModule {
       });
   }
 
-  @ReactMethod
-  public void getMinAndMaxExposureCompensation(final int viewTag, final Promise promise) {
-    final ReactApplicationContext context = getReactApplicationContext();
-    UIManagerModule uiManager = context.getNativeModule(UIManagerModule.class);
-    uiManager.addUIBlock(new UIBlock() {
-      @Override
-      public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
-        final RNCameraView cameraView;
-        try {
-          cameraView = (RNCameraView) nativeViewHierarchyManager.resolveView(viewTag);
-          WritableArray result = Arguments.createArray();
-          if (cameraView.isCameraOpened()) {
-            Range<Integer> range1 = cameraView.getMinAndMaxExposureCompensation();
+  // @ReactMethod
+  // public void getMinAndMaxExposureCompensation(final int viewTag, final Promise promise) {
+  //   final ReactApplicationContext context = getReactApplicationContext();
+  //   UIManagerModule uiManager = context.getNativeModule(UIManagerModule.class);
+  //   uiManager.addUIBlock(new UIBlock() {
+  //     @Override
+  //     public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
+  //       final RNCameraView cameraView;
+  //       try {
+  //         cameraView = (RNCameraView) nativeViewHierarchyManager.resolveView(viewTag);
+  //         WritableArray result = Arguments.createArray();
+  //         if (cameraView.isCameraOpened()) {
+  //           Range<Integer> range1 = cameraView.getMinAndMaxExposureCompensation();
 
-            int minExposure = range1.getLower();
-            int maxExposure = range1.getUpper();
+  //           int minExposure = range1.getLower();
+  //           int maxExposure = range1.getUpper();
 
-            result.pushString(String.valueOf(minExposure));
-            result.pushString(String.valueOf(maxExposure));
+  //           result.pushString(String.valueOf(minExposure));
+  //           result.pushString(String.valueOf(maxExposure));
 
-            promise.resolve(result);
-          } else {
-            promise.reject("E_CAMERA_UNAVAILABLE", "Camera is not running");
-          }
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
+  //           promise.resolve(result);
+  //         } else {
+  //           promise.reject("E_CAMERA_UNAVAILABLE", "Camera is not running");
+  //         }
+  //       } catch (Exception e) {
+  //         e.printStackTrace();
+  //       }
+  //     }
+  //   });
+  // }
 
   @ReactMethod
   public void hasCamera2Api(final int viewTag, final Promise promise) {
@@ -439,7 +439,7 @@ public class CameraModule extends ReactContextBaseJavaModule {
             @Override
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 final RNCameraView cameraView;
-                
+
                 try {
                     cameraView = (RNCameraView) nativeViewHierarchyManager.resolveView(viewTag);
                     WritableArray result = Arguments.createArray();

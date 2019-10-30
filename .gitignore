@@ -46,3 +46,4 @@ package-json.lock
 
 # vscode
 .vscode
+.history

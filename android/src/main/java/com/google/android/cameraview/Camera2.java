@@ -645,11 +645,11 @@ class Camera2 extends CameraViewImpl implements MediaRecorder.OnInfoListener, Me
         return mExposureCompensation;
     }
 
-    @Override
-    Range<Integer> getMinAndMaxExposureCompensation() {
-        Range<Integer> range1 = mCameraCharacteristics.get(CameraCharacteristics.CONTROL_AE_COMPENSATION_RANGE);
-        return range1;
-    }
+    // @Override
+    // Range<Integer> getMinAndMaxExposureCompensation() {
+    //     Range<Integer> range1 = mCameraCharacteristics.get(CameraCharacteristics.CONTROL_AE_COMPENSATION_RANGE);
+    //     return range1;
+    // }
 
     @Override
     public void setWhiteBalance(int whiteBalance) {

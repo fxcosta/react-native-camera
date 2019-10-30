@@ -55,11 +55,11 @@ abstract class CameraViewImpl {
     abstract int getFacing();
 
     abstract Set<AspectRatio> getSupportedAspectRatios();
-    
+
     abstract SortedSet<Size> getAvailablePictureSizes(AspectRatio ratio);
-    
+
     abstract void setPictureSize(Size size);
-    
+
     abstract Size getPictureSize();
 
     /**
@@ -105,7 +105,7 @@ abstract class CameraViewImpl {
 
     abstract float getExposureCompensation();
 
-    abstract Range<Integer> getMinAndMaxExposureCompensation();
+    // abstract Range<Integer> getMinAndMaxExposureCompensation();
 
     abstract void setWhiteBalance(int whiteBalance);
 
@@ -114,11 +114,11 @@ abstract class CameraViewImpl {
     abstract void setScanning(boolean isScanning);
 
     abstract boolean getScanning();
-    
+
     abstract boolean checkIfHasCamera2();
 
     abstract public void resumePreview();
-    
+
     abstract public void pausePreview();
 
     abstract public void setPreviewTexture(SurfaceTexture surfaceTexture);

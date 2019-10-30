@@ -521,9 +521,9 @@ public class CameraView extends FrameLayout {
         return mImpl.getExposureCompensation();
     }
 
-    public Range<Integer> getMinAndMaxExposureCompensation() {
-        return mImpl.getMinAndMaxExposureCompensation();
-    }
+    // public Range<Integer> getMinAndMaxExposureCompensation() {
+    //     return mImpl.getMinAndMaxExposureCompensation();
+    // }
 
     public boolean hasCamera2Api() {
         if (Build.VERSION.SDK_INT < 21) {
@@ -572,7 +572,7 @@ public class CameraView extends FrameLayout {
     /**
      * Record a video and save it to file. The result will be returned to
      * {@link Callback#onVideoRecorded(CameraView, String, int, int)}.
-     * 
+     *
      * @param path        Path to file that video will be saved to.
      * @param maxDuration Maximum duration of the recording, in seconds.
      * @param maxFileSize Maximum recording file size, in bytes.

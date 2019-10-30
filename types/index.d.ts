@@ -93,13 +93,11 @@ type RecordAudioPermissionStatus = Readonly<
     NOT_AUTHORIZED: 'NOT_AUTHORIZED';
   }>
 >;
-type FaCC = (
-  params: {
-    camera: RNCamera;
-    status: keyof CameraStatus;
-    recordAudioPermissionStatus: keyof RecordAudioPermissionStatus;
-  },
-) => JSX.Element;
+type FaCC = (params: {
+  camera: RNCamera;
+  status: keyof CameraStatus;
+  recordAudioPermissionStatus: keyof RecordAudioPermissionStatus;
+}) => JSX.Element;
 
 export interface Constants {
   CameraStatus: CameraStatus;
@@ -298,7 +296,7 @@ export class RNCamera extends Component<RNCameraProps & ViewProperties> {
   resumePreview(): void;
   getAvailablePictureSizes(): Promise<string[]>;
 
-  getMinAndMaxExposureCompensationAsync(): Promise<string[]>;
+  // getMinAndMaxExposureCompensationAsync(): Promise<string[]>;
   hasCamera2Api(): Promise<string[]>;
   getSdkVersion(): Promise<string[]>;
 
