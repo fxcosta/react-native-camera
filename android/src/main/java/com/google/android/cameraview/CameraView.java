@@ -427,9 +427,9 @@ public class CameraView extends FrameLayout {
      * @param size The {@link Size} to be set.
      */
     public void setPictureSize(@NonNull Size size) {
-        mImpl.setPictureSize(size);
+//        mImpl.setPictureSize(size);
         if (mImpl.checkIfHasCamera2() == true) {
-            // mImpl.setPictureSize(Size.parse("16x9"));
+             mImpl.setPictureSize(Size.parse("16x9"));
             // vou setar um size estatico porque isso n ta funcionando direito usando a
             // regra que defini
         }
