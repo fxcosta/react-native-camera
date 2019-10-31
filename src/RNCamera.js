@@ -400,9 +400,9 @@ export default class Camera extends React.Component<PropsType, StateType> {
     }
   }
 
-  async getMinAndMaxExposureCompensationAsync() {
-    return await CameraManager.getMinAndMaxExposureCompensation(this._cameraHandle);
-  }
+  // async getMinAndMaxExposureCompensationAsync() {
+  //   return await CameraManager.getMinAndMaxExposureCompensation(this._cameraHandle);
+  // }
 
   async hasCamera2Api() {
     return await CameraManager.hasCamera2Api(this._cameraHandle);

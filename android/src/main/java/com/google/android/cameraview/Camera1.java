@@ -392,10 +392,10 @@ class Camera1 extends CameraViewImpl
         return mExposureCompensation;
     }
 
-    @Override
-    Range<Integer> getMinAndMaxExposureCompensation() {
-        return new Range(0, 2);
-    }
+    // @Override
+    // Range<Integer> getMinAndMaxExposureCompensation() {
+    //     return new Range(0, 2);
+    // }
 
     @Override
     public void setWhiteBalance(int whiteBalance) {
