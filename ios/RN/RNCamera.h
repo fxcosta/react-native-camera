@@ -34,6 +34,8 @@
 @property (assign, nonatomic) NSInteger flashMode;
 @property (assign, nonatomic) CGFloat zoom;
 @property (assign, nonatomic) NSInteger autoFocus;
+@property (assign, nonatomic) CGFloat zoomRegionVertical;
+@property (assign, nonatomic) CGFloat zoomRegionHorizontal;
 @property (assign, nonatomic) float exposureCompensation;
 @property (assign, nonatomic) CMTime *exposureDuration;
 @property (copy, nonatomic) NSDictionary *autoFocusPointOfInterest;
@@ -55,6 +57,8 @@
 - (void)updateFocusMode;
 // + (AVCaptureDevice *)getVideoCaptureDeviceInput;
 - (void)updateExposureCompensation;
+- (void)updateZoomRegionHorizontal;
+- (void)updateZoomRegionVertical;
 - (void)updateFocusDepth;
 - (void)updateAutoFocusPointOfInterest;
 - (void)updateZoom;
@@ -82,4 +86,3 @@
 - (bool)isRecording;
 
 @end
-

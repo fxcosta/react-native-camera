@@ -49,6 +49,7 @@ static NSDictionary *defaultFaceDetectorOptions = nil;
         [AVCaptureVideoPreviewLayer layerWithSession:self.session];
         self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         self.previewLayer.needsDisplayOnBoundsChange = YES;
+
 #endif
         self.paused = NO;
         [self changePreviewOrientation:[UIApplication sharedApplication].statusBarOrientation];
@@ -59,6 +60,7 @@ static NSDictionary *defaultFaceDetectorOptions = nil;
                                                      name:UIDeviceOrientationDidChangeNotification
                                                    object:nil];
         self.autoFocus = -1;
+        //self.previewLayer.frame = CGRectMake(0, 0, 1280, 720);
         //        [[NSNotificationCenter defaultCenter] addObserver:self
         //                                                 selector:@selector(bridgeDidForeground:)
         //                                                     name:EX_UNVERSIONED(@"EXKernelBridgeDidForegroundNotification")
@@ -110,10 +112,14 @@ static NSDictionary *defaultFaceDetectorOptions = nil;
 
 - (void)layoutSubviews
 {
+    NSLog(@"viewDidLayoutSubviews");
     [super layoutSubviews];
     self.previewLayer.frame = self.bounds;
+    //self.previewLayer.frame = CGRectMake(0, -230, self.bounds.size.width, self.bounds.size.height);
     [self setBackgroundColor:[UIColor blackColor]];
     [self.layer insertSublayer:self.previewLayer atIndex:0];
+    // [self.layer setBackgroundColor:[UIColor blackColor].CGColor];
+
 }
 
 - (void)insertReactSubview:(UIView *)view atIndex:(NSInteger)atIndex
@@ -296,6 +302,76 @@ static NSDictionary *defaultFaceDetectorOptions = nil;
     [device unlockForConfiguration];
 }
 
+// - (void)viewDidLayoutSubviews
+// {
+//     NSLog(@"viewDidLayoutSubviews");
+//     [super viewDidLayoutSubviews];
+//     [self updatePreviewLayer];
+// }
+
+// - (void)updatePreviewLayer
+// {
+//     self.previewLayer.bounds = CGRectMake(0, 0, self.layer.frame.size.width, self.layer.frame.size.height);
+//     [self updateZoomRegionHorizontal];
+// }
+
+- (void)updateZoomRegionHorizontal
+{
+    AVCaptureDevice *device = [self.videoCaptureDeviceInput device];
+
+    // self.layer.frame = CGRectMake(self.layer.frame.origin.x, self.layer.frame.origin.y, self.bounds.size.width, self.bounds.size.height);
+
+    // self.translatesAutoresizingMaskIntoConstraints = YES;
+
+    // self.layer.frame = CGRectMake(self.zoomRegionHorizontal, self.zoomRegionVertical, self.bounds.size.width + (self.bounds.size.width * self.zoom), self.bounds.size.height + (self.bounds.size.height * self.zoom));
+
+    self.previewLayer.frame = CGRectMake(self.zoomRegionHorizontal, self.zoomRegionVertical, self.bounds.size.width, self.bounds.size.height);
+
+        // self.previewLayer.position=CGPointMake(self.zoomRegionHorizontal, self.zoomRegionVertical);
+
+    // self.previewLayer.position	 = CGPoint(self.zoomRegionHorizontal, self.zoomRegionVertical);
+
+    self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    self.previewLayer.needsDisplayOnBoundsChange = YES;
+
+    [self.layer insertSublayer:self.previewLayer atIndex:0];
+    //RCTLogWarn(@"Setting focusDepth isn't supported for this camera device");
+}
+
+- (void)updateZoomRegionVertical
+{
+
+    AVCaptureDevice *device = [self.videoCaptureDeviceInput device];
+
+    // self.layer.frame = CGRectMake(self.zoomRegionHorizontal, self.zoomRegionVertical, self.bounds.size.width + (self.zoom * 500), self.bounds.size.height + (self.zoom * 500));
+
+    // self.translatesAutoresizingMaskIntoConstraints = YES;
+
+    // self.layer.frame = CGRectMake(self.zoomRegionHorizontal, self.zoomRegionVertical, self.bounds.size.width + (self.bounds.size.width * self.zoom), self.bounds.size.height + (self.bounds.size.height * self.zoom));
+
+    self.previewLayer.frame = CGRectMake(self.zoomRegionHorizontal, self.zoomRegionVertical, self.bounds.size.width, self.bounds.size.height);
+
+    NSLog(@"%f", self.zoom);
+
+    NSLog(@"%f", self.bounds.size.width);
+    NSLog(@"%f", self.bounds.size.height);
+
+    NSLog(@"%f", self.previewLayer.frame.size.width);
+    NSLog(@"%f", self.previewLayer.frame.size.width);
+
+    NSLog(@"%f", self.layer.frame.size.width);
+    NSLog(@"%f", self.layer.frame.size.width);
+
+    // self.previewLayer.position=CGPointMake(self.zoomRegionHorizontal, self.zoomRegionVertical);
+
+    // self.previewLayer.position = CGPointMake(self.zoomRegionHorizontal, self.zoomRegionVertical);  //CGPointMake(view.bounds.midX, view.bounds.midY)
+
+    self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    self.previewLayer.needsDisplayOnBoundsChange = YES;
+
+    [self.layer insertSublayer:self.previewLayer atIndex:0];
+}
+
 - (void)updateZoom {
     AVCaptureDevice *device = [self.videoCaptureDeviceInput device];
     NSError *error = nil;
@@ -308,6 +384,22 @@ static NSDictionary *defaultFaceDetectorOptions = nil;
     }
 
     device.videoZoomFactor = (device.activeFormat.videoMaxZoomFactor - 1.0) * self.zoom + 1.0;
+
+    // self.layer.frame = CGRectMake(self.zoomRegionHorizontal, self.zoomRegionVertical, self.bounds.size.width + (375 * self.zoom), self.bounds.size.height + (375 * self.zoom));
+
+    // CGRect frame = self.previewLayer.frame;
+    // frame.origin.x = self.zoomRegionHorizontal;
+    // frame.origin.y = self.zoomRegionVertical;
+    // self.previewLayer.frame = frame;
+
+    //self.layer.frame = CGRectMake(self.layer.frame.origin.x, self.layer.frame.origin.y, 650, 650);
+
+    // self.previewLayer.frame = CGRectMake(self.zoomRegionHorizontal, self.zoomRegionVertical, self.bounds.size.width, self.bounds.sfzzzdize.height);
+
+    // self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    // self.previewLayer.needsDisplayOnBoundsChange = YES;
+
+    // [self.layer insertSublayer:self.previewLayer atIndex:0];
 
     [device unlockForConfiguration];
 }
@@ -735,6 +827,8 @@ static NSDictionary *defaultFaceDetectorOptions = nil;
             [self updateFocusMode];
             [self updateFocusDepth];
             [self updateExposureCompensation];
+            // [self updateZoomRegionHorizontal];
+            // [self updateZoomRegionVertical];
             [self updateAutoFocusPointOfInterest];
             [self updateWhiteBalance];
             [self.previewLayer.connection setVideoOrientation:orientation];
@@ -987,7 +1081,7 @@ static NSDictionary *defaultFaceDetectorOptions = nil;
         void (^resolveBlock)(void) = ^() {
             self.videoRecordedResolve(result);
         };
-        
+
         result[@"uri"] = outputFileURL.absoluteString;
         result[@"videoOrientation"] = @([self.orientation integerValue]);
         result[@"deviceOrientation"] = @([self.deviceOrientation integerValue]);

@@ -194,6 +194,16 @@ RCT_CUSTOM_VIEW_PROPERTY(exposureCompensation, float, RNCamera) {
 //   });
 }
 
+RCT_CUSTOM_VIEW_PROPERTY(zoomRegionVertical, NSNumber, RNCamera) {
+    [view setZoomRegionVertical:[RCTConvert CGFloat:json]];
+    [view updateZoomRegionVertical];
+}
+
+RCT_CUSTOM_VIEW_PROPERTY(zoomRegionHorizontal, NSNumber, RNCamera) {
+    [view setZoomRegionHorizontal:[RCTConvert CGFloat:json]];
+    [view updateZoomRegionHorizontal];
+}
+
 RCT_CUSTOM_VIEW_PROPERTY(zoom, NSNumber, RNCamera)
 {
     [view setZoom:[RCTConvert CGFloat:json]];
@@ -236,7 +246,7 @@ RCT_CUSTOM_VIEW_PROPERTY(faceDetectionClassifications, NSString, RNCamera)
 
 RCT_CUSTOM_VIEW_PROPERTY(barCodeScannerEnabled, BOOL, RNCamera)
 {
-    
+
     view.isReadingBarCodes = [RCTConvert BOOL:json];
     [view setupOrDisableBarcodeScanner];
 }
@@ -248,7 +258,7 @@ RCT_CUSTOM_VIEW_PROPERTY(barCodeTypes, NSArray, RNCamera)
 
 RCT_CUSTOM_VIEW_PROPERTY(textRecognizerEnabled, BOOL, RNCamera)
 {
-    
+
     view.canReadText = [RCTConvert BOOL:json];
     [view setupOrDisableTextDetector];
 }
@@ -364,7 +374,7 @@ RCT_REMAP_METHOD(stopRecording, reactTag:(nonnull NSNumber *)reactTag)
 RCT_EXPORT_METHOD(checkDeviceAuthorizationStatus:(RCTPromiseResolveBlock)resolve
                   reject:(__unused RCTPromiseRejectBlock)reject) {
     __block NSString *mediaType = AVMediaTypeVideo;
-    
+
     [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {
         if (!granted) {
             resolve(@(granted));

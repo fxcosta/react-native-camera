@@ -73,7 +73,7 @@
     width /= [UIScreen mainScreen].scale; // prevents image from being incorrectly resized on retina displays
     float scaleRatio = (float) width / (float) image.size.width;
     CGSize size = CGSizeMake(width, roundf(image.size.height * scaleRatio));
-    
+
     UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
     [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -90,7 +90,7 @@
         UIGraphicsEndImageContext();
     }
     return image;
-} 
+}
 
 
 + (void)updatePhotoMetadata:(CMSampleBufferRef)imageSampleBuffer withAdditionalData:(NSDictionary *)additionalData inResponse:(NSMutableDictionary *)response
@@ -99,19 +99,19 @@
     NSMutableDictionary *metadata = (__bridge NSMutableDictionary *)exifAttachments;
     metadata[(NSString *)kCGImagePropertyExifPixelYDimension] = response[@"width"];
     metadata[(NSString *)kCGImagePropertyExifPixelXDimension] = response[@"height"];
-    
+
     for (id key in additionalData) {
         metadata[key] = additionalData[key];
     }
-    
+
     NSDictionary *gps = metadata[(NSString *)kCGImagePropertyGPSDictionary];
-    
+
     if (gps) {
         for (NSString *gpsKey in gps) {
             metadata[[@"GPS" stringByAppendingString:gpsKey]] = gps[gpsKey];
         }
     }
-    
+
     response[@"exif"] = metadata;
 }
 
